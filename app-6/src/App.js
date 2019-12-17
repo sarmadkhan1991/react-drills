@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Todo from './components/todo';
 
 class App extends Component {
   constructor () {
@@ -18,8 +19,7 @@ class App extends Component {
   updateTaskList () {
     let task = this.state.task
     let tasklist = this.state.taskList
-    tasklist.push(task);
-    this.setState( { task: '', taskList: tasklist } );
+    this.setState( { task: '', taskList: [...tasklist, task] } );
   }
 
 
@@ -28,9 +28,11 @@ class App extends Component {
     return (
       <div className="App">
         <h1>My to-do List:</h1>
-        <input onChange={ e => this.updateTask( e.target.value ) } placeholder='Enter a task'/>
+        <input onChange={ e => this.updateTask( e.target.value ) } placeholder='Enter a task' value={this.state.task}/>
         <button onClick={this.updateTaskList}>Add</button>
-        
+        <div>
+          <Todo taskList={this.state.taskList} /> 
+        </div>
       </div>
     );
   }
